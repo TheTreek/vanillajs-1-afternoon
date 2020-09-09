@@ -1,6 +1,19 @@
 let arr = [];
+let gameOver = false;
+
+function resetGame(){
+    gameOver = false;
+    arr = [];
+    const tdList = document.getElementsByTagName('td');
+    for(let i = 0; i < tdList.length; i++){
+        tdList[i].textContent = '';
+    }
+}
 
 const play = (id) =>{
+    if(gameOver){
+        return null;
+    }
     let player = document.getElementById('player');
     let char = player.innerText;
 
@@ -19,6 +32,7 @@ const play = (id) =>{
     let win = checkForWinner(arr);
     if(win[0] === true){
         window.alert(`Player ${win[1]} has won the game!`);
+        gameOver = true;
     }else{
         //CHECK IF FULL
         if(arr.length === 9){
@@ -28,6 +42,7 @@ const play = (id) =>{
             }
             if(full){
                 window.alert("It's a CAT's game.")
+                gameOver = true;
             }
         }
     }
@@ -54,3 +69,4 @@ const checkForWinner = (arr)=>{
     });
     return [winBool,winner]
 }
+
